@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callbacks</title>
+</head>
+<body>
+    <h1>Callbacks</h1>
+    <span>Valor: </span>
+    <input type="number" id="input" min="1" max="25" style="width: 200px;" placeholder="Ingresa un número (1-25)">
+    <button id="btn">Calcular</button>
+    <div id="resultado"></div>
+    
+    <script>
+        const btn = document.getElementById('btn');
+        const input = document.getElementById('input');
+        const resultado = document.getElementById('resultado');
+
+        function calcular(callback){
+            const valor = parseInt(input.value);
+            if(isNaN(valor) || valor < 1 || valor > 25){
+                resultado.innerHTML = 'Ingresa un número válido';
+                return;
+            }
+
+            resultado.innerHTML = '';
+
+            for(let i = 1; i <= valor; i++){
+                callback(valor, i);
+            }
+        }
+
+        //Callback con nombre
+        function calcularMultiplicacion(valor, i){  
+            resultado.innerHTML += `${valor} x ${i} = ${valor * i} <br>`;
+        }
+
+        btn.addEventListener('click', function(){
+            calcular(calcularMultiplicacion);
+            // funcion anonima
+            /*
+             calcular(function(valor, i){
+                resultado.innerHTML += `${valor} x ${i} = ${valor * i} <br>`;
+            });
+            */
+        });
+       
+    </script>
+</body>
+</html>
